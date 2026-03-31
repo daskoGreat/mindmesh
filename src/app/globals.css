@@ -1,26 +1,40 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --mesh-bg: #05070d;
+  --mesh-bg-elevated: #0a0f18;
+  --mesh-surface: #0e141f;
+  --mesh-border: rgba(148, 163, 184, 0.12);
+  --mesh-text: #e8eaef;
+  --mesh-muted: #8b95a5;
+  --mesh-accent: #c4f031;
+  --mesh-accent-hover: #d4f566;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-mesh-bg: var(--mesh-bg);
+  --color-mesh-bg-elevated: var(--mesh-bg-elevated);
+  --color-mesh-surface: var(--mesh-surface);
+  --color-mesh-border: var(--mesh-border);
+  --color-mesh-text: var(--mesh-text);
+  --color-mesh-muted: var(--mesh-muted);
+  --color-mesh-accent: var(--mesh-accent);
+  --color-mesh-accent-hover: var(--mesh-accent-hover);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --spacing-section: clamp(4rem, 10vw, 8rem);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--mesh-bg);
+  color: var(--mesh-text);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background-color: color-mix(in srgb, var(--mesh-accent) 35%, transparent);
+  color: var(--mesh-text);
 }
