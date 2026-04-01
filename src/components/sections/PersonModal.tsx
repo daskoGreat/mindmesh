@@ -9,6 +9,7 @@ import {
   useRef,
 } from "react";
 import type { TeamMember } from "@/data/team";
+import { useMessages } from "@/i18n/I18nProvider";
 
 type PersonModalProps = {
   member: TeamMember | null;
@@ -16,6 +17,7 @@ type PersonModalProps = {
 };
 
 export function PersonModal({ member, onClose }: PersonModalProps) {
+  const m = useMessages();
   const open = member !== null;
   const titleId = useId();
   const panelRef = useRef<HTMLDivElement>(null);
@@ -43,7 +45,7 @@ export function PersonModal({ member, onClose }: PersonModalProps) {
     <AnimatePresence>
       {open && member ? (
         <motion.div
-          className="fixed inset-0 z-[70] flex items-end justify-center p-4 sm:items-center md:p-6"
+          className="fixed inset-0 z-[70] flex items-end justify-center p-0 sm:p-4 sm:items-center md:p-6"
           role="presentation"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -52,7 +54,7 @@ export function PersonModal({ member, onClose }: PersonModalProps) {
         >
           <button
             type="button"
-            aria-label="Stäng"
+            aria-label={m.a11y.close}
             className="absolute inset-0 bg-mesh-bg/80 backdrop-blur-[2px]"
             onClick={handleClose}
           />
@@ -61,7 +63,7 @@ export function PersonModal({ member, onClose }: PersonModalProps) {
             role="dialog"
             aria-modal="true"
             aria-labelledby={titleId}
-            className="relative z-10 max-h-[min(92vh,780px)] w-full max-w-lg overflow-y-auto rounded-xl border border-mesh-border bg-mesh-bg-elevated shadow-[0_24px_80px_rgba(0,0,0,0.45)]"
+            className="relative z-10 max-h-[100dvh] w-full max-w-lg overflow-y-auto overscroll-y-contain rounded-t-2xl border border-mesh-border border-b-0 bg-mesh-bg-elevated shadow-[0_24px_80px_rgba(0,0,0,0.45)] sm:max-h-[min(92dvh,780px)] sm:rounded-xl sm:border-b"
             initial={{ opacity: 0, y: 16, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 12, scale: 0.98 }}
@@ -93,24 +95,24 @@ export function PersonModal({ member, onClose }: PersonModalProps) {
               <button
                 type="button"
                 onClick={handleClose}
-                className="shrink-0 rounded-md p-1.5 text-mesh-muted transition-colors hover:bg-mesh-surface hover:text-mesh-text"
-                aria-label="Stäng dialog"
+                className="touch-manipulation -mr-1 shrink-0 rounded-md p-3 text-mesh-muted transition-colors hover:bg-mesh-surface hover:text-mesh-text sm:p-1.5"
+                aria-label={m.a11y.closeDialog}
               >
                 <CloseIcon />
               </button>
             </div>
 
-            <div className="space-y-6 px-4 py-5 sm:px-5">
+            <div className="space-y-6 px-4 py-5 pb-[max(1.25rem,env(safe-area-inset-bottom,0px))] sm:px-5 sm:pb-5">
               <p className="text-sm leading-relaxed text-mesh-muted sm:text-base">
                 {member.bio}
               </p>
 
               <div>
                 <h3 className="text-xs font-medium uppercase tracking-[0.16em] text-mesh-muted">
-                  Utvalda projekt
+                  {m.personModal.projects}
                 </h3>
                 <p className="mt-1 text-[11px] leading-relaxed text-mesh-muted/80">
-                  Exempel för visning. Ersätter inte referenssamtal.
+                  {m.personModal.note}
                 </p>
                 <ul className="mt-4 space-y-4">
                   {member.projects.map((p) => (
@@ -122,7 +124,7 @@ export function PersonModal({ member, onClose }: PersonModalProps) {
                         className={`h-14 w-14 shrink-0 rounded-full ${p.thumbClass}`}
                         aria-hidden
                       />
-                      <div>
+                      <div className="min-w-0">
                         <p className="text-sm font-semibold text-mesh-text">
                           {p.title}
                         </p>

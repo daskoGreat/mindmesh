@@ -9,9 +9,9 @@ import { AiInsightsPanel } from "@/components/insights/AiInsightsPanel";
 
 export default function Home() {
   return (
-    <div className="flex min-h-full flex-1 flex-col bg-mesh-bg">
+    <div className="flex min-h-full min-h-[100dvh] flex-1 flex-col bg-mesh-bg">
       <Hero />
-      <main className="flex-1">
+      <main className="flex-1 pb-[max(4.5rem,env(safe-area-inset-bottom,0px)+3rem)] sm:pb-8 md:pb-10">
         <WhatWeDo />
         <HowWeThink />
         <People />

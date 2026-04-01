@@ -18,7 +18,7 @@ export function Section({
   return (
     <motion.section
       id={id}
-      className={`border-t border-mesh-border px-5 py-[var(--spacing-section)] md:px-8 ${className}`}
+      className={`border-t border-mesh-border px-4 py-[var(--spacing-section)] sm:px-6 md:px-8 ${className}`}
       initial={{ opacity: 1 }}
       whileInView={{
         boxShadow: "inset 0 1px 0 0 rgba(196, 240, 49, 0.07)",

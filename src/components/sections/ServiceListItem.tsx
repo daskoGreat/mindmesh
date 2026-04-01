@@ -97,7 +97,7 @@ export function ServiceListItem({
 
   return (
     <motion.li
-      className="group border-l-2 border-mesh-accent/40 pl-5"
+      className="group min-w-0 border-l-2 border-mesh-accent/40 pl-4 sm:pl-5"
       initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
@@ -116,10 +116,12 @@ export function ServiceListItem({
         >
           <Icon className="h-5 w-5 shrink-0" />
         </motion.div>
-        <div>
-          <h3 className="font-semibold text-mesh-text">{title}</h3>
-          <p className="mt-2 text-sm leading-relaxed text-mesh-muted">{text}</p>
-        </div>
+          <div className="min-w-0">
+            <h3 className="text-pretty font-semibold text-mesh-text">{title}</h3>
+            <p className="mt-2 break-words text-sm leading-relaxed text-mesh-muted">
+              {text}
+            </p>
+          </div>
       </div>
     </motion.li>
   );

@@ -1,24 +1,29 @@
+"use client";
+
 import { FadeIn } from "@/components/motion/FadeIn";
 import { Section } from "@/components/ui/Section";
+import { useMessages } from "@/i18n/I18nProvider";
 
 export function HowWeThink() {
+  const m = useMessages();
+
   return (
     <Section className="bg-mesh-bg-elevated">
       <FadeIn>
         <h2 className="text-sm font-medium uppercase tracking-[0.16em] text-mesh-muted">
-          Hur vi tänker
+          {m.howWeThink.heading}
         </h2>
       </FadeIn>
 
-      <FadeIn delay={0.08} className="mt-12 max-w-3xl space-y-6 md:mt-16">
-        <p className="text-lg leading-relaxed text-mesh-text md:text-xl">
-          De flesta problem är inte isolerade. De hänger ihop.
+      <FadeIn delay={0.08} className="mt-12 max-w-3xl space-y-5 md:mt-16 md:space-y-6">
+        <p className="text-[1.0625rem] leading-relaxed text-mesh-text sm:text-lg md:text-xl">
+          {m.howWeThink.p1}
         </p>
-        <p className="text-lg leading-relaxed text-mesh-muted md:text-xl">
-          Vi ser helheten. Tekniken, människorna och affären.
+        <p className="text-[1.0625rem] leading-relaxed text-mesh-muted sm:text-lg md:text-xl">
+          {m.howWeThink.p2}
         </p>
-        <p className="text-lg font-medium leading-relaxed text-mesh-text md:text-xl">
-          Det är först när de möts som det blir på riktigt.
+        <p className="text-[1.0625rem] font-medium leading-relaxed text-mesh-text sm:text-lg md:text-xl">
+          {m.howWeThink.p3}
         </p>
       </FadeIn>
     </Section>

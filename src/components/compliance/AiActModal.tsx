@@ -8,53 +8,10 @@ import {
   useRef,
   useState,
 } from "react";
-
-const QUESTIONS: { id: string; prompt: string }[] = [
-  {
-    id: "q1",
-    prompt: "Har ni en överblick över var AI används eller planeras i verksamheten?",
-  },
-  {
-    id: "q2",
-    prompt: "Finns utsedda roller eller ansvar för risk, test och uppföljning?",
-  },
-  {
-    id: "q3",
-    prompt: "Dokumenteras beslut, datakällor och begränsningar kring modellerna?",
-  },
-  {
-    id: "q4",
-    prompt: "Har ni rutiner för mänsklig övervakning där det behövs?",
-  },
-  {
-    id: "q5",
-    prompt: "Utvärderar ni löpande om lösningarna gör vad ni tror att de gör?",
-  },
-];
+import { getAiActResult } from "@/i18n/dictionaries";
+import { useI18n, useMessages } from "@/i18n/I18nProvider";
 
 type Level = "green" | "yellow" | "red" | null;
-
-function scoreToLevel(score: number): { level: Level; label: string; body: string } {
-  if (score >= 9) {
-    return {
-      level: "green",
-      label: "Bra utgångsläge",
-      body: "Ni verkar ha flera grundpelare på plats. Fortsätt med tydliga ägarskap och löpande genomlysning när nya lösningar tillkommer.",
-    };
-  }
-  if (score >= 5) {
-    return {
-      level: "yellow",
-      label: "Delvis beredskap",
-      body: "Det finns luckor som är rimliga att åtgärda innan skärpta krav börjar märkas i vardagen. Prioritera dokumentation och roller.",
-    };
-  }
-  return {
-    level: "red",
-    label: "Hög prioritering",
-    body: "Flera signaler pekar på att strukturen behöver förstärkas snarast. En fokuserad kartläggning och en enkel handlingsplan brukar vara bästa nästa steg.",
-  };
-}
 
 const LEVEL_STYLES: Record<
   NonNullable<Level>,
@@ -79,10 +36,10 @@ const LEVEL_STYLES: Record<
 
 export function AiActModalTrigger({
   className = "",
-  label = "AI Act: snabbkoll",
+  label,
 }: {
   className?: string;
-  label?: string;
+  label: string;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -91,7 +48,7 @@ export function AiActModalTrigger({
       <motion.button
         type="button"
         onClick={() => setOpen(true)}
-        className={className}
+        className={`touch-manipulation ${className}`}
         whileHover={{ y: -1.5 }}
         whileTap={{ scale: 0.98 }}
         transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
@@ -110,22 +67,32 @@ function AiActModal({
   open: boolean;
   onClose: () => void;
 }) {
+  const { locale } = useI18n();
+  const msg = useMessages().aiAct;
+  const a11y = useMessages().a11y;
   const titleId = useId();
   const panelRef = useRef<HTMLDivElement>(null);
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [submitted, setSubmitted] = useState(false);
+
+  const questions = msg.questions.map((prompt, i) => ({
+    id: `q${i + 1}`,
+    prompt,
+  }));
 
   const setAnswer = useCallback((id: string, value: number) => {
     setAnswers((a) => ({ ...a, [id]: value }));
     setSubmitted(false);
   }, []);
 
-  const total = QUESTIONS.reduce((sum, q) => sum + (answers[q.id] ?? 0), 0);
-  const max = QUESTIONS.length * 2;
-  const filled = QUESTIONS.every((q) => answers[q.id] !== undefined);
+  const total = questions.reduce((sum, q) => sum + (answers[q.id] ?? 0), 0);
+  const max = questions.length * 2;
+  const filled = questions.every((q) => answers[q.id] !== undefined);
 
   const result =
-    submitted && filled ? scoreToLevel(total) : { level: null as Level, label: "", body: "" };
+    submitted && filled
+      ? getAiActResult(locale, total)
+      : { level: null as Level, label: "", body: "" };
 
   const handleClose = useCallback(() => {
     setSubmitted(false);
@@ -147,11 +114,17 @@ function AiActModal({
     };
   }, [open, handleClose]);
 
+  const opts = [
+    { v: 0, t: msg.opt0 },
+    { v: 1, t: msg.opt1 },
+    { v: 2, t: msg.opt2 },
+  ] as const;
+
   return (
     <AnimatePresence>
       {open ? (
         <motion.div
-          className="fixed inset-0 z-[70] flex items-end justify-center p-4 sm:items-center md:p-6"
+          className="fixed inset-0 z-[70] flex items-end justify-center p-0 sm:p-4 sm:items-center md:p-6"
           role="presentation"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -160,7 +133,7 @@ function AiActModal({
         >
           <button
             type="button"
-            aria-label="Stäng"
+            aria-label={a11y.close}
             className="absolute inset-0 bg-mesh-bg/75 backdrop-blur-[2px]"
             onClick={handleClose}
           />
@@ -169,63 +142,53 @@ function AiActModal({
             role="dialog"
             aria-modal="true"
             aria-labelledby={titleId}
-            className="relative z-10 max-h-[min(90vh,720px)] w-full max-w-lg overflow-y-auto rounded-xl border border-mesh-border bg-mesh-bg-elevated shadow-[0_24px_80px_rgba(0,0,0,0.45)]"
+            className="relative z-10 max-h-[100dvh] w-full max-w-lg overflow-y-auto overscroll-y-contain rounded-t-2xl border border-mesh-border border-b-0 bg-mesh-bg-elevated shadow-[0_24px_80px_rgba(0,0,0,0.45)] sm:max-h-[min(90dvh,720px)] sm:rounded-xl sm:border-b"
             initial={{ opacity: 0, y: 16, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 12, scale: 0.98 }}
             transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="sticky top-0 flex items-start justify-between gap-4 border-b border-mesh-border bg-mesh-bg-elevated/95 px-5 py-4 backdrop-blur-sm">
-              <div>
+            <div className="sticky top-0 flex items-start justify-between gap-3 border-b border-mesh-border bg-mesh-bg-elevated/95 px-4 py-3 backdrop-blur-sm sm:gap-4 sm:px-5 sm:py-4">
+              <div className="min-w-0 pr-2">
                 <h2
                   id={titleId}
-                  className="text-base font-semibold tracking-tight text-mesh-text"
+                  className="text-pretty text-base font-semibold tracking-tight text-mesh-text"
                 >
-                  AI Act Compliance Check
+                  {msg.title}
                 </h2>
-                <p className="mt-1 text-xs text-mesh-muted">
-                  Förenklad självbedömning för demonstration. Ersätter inte juridisk rådgivning.
+                <p className="mt-1 text-xs leading-snug text-mesh-muted">
+                  {msg.subtitle}
                 </p>
               </div>
               <button
                 type="button"
                 onClick={handleClose}
-                className="rounded-md p-1.5 text-mesh-muted transition-colors hover:bg-mesh-surface hover:text-mesh-text"
-                aria-label="Stäng dialog"
+                className="touch-manipulation -mr-1 shrink-0 rounded-md p-3 text-mesh-muted transition-colors hover:bg-mesh-surface hover:text-mesh-text sm:p-1.5"
+                aria-label={a11y.closeDialog}
               >
                 <CloseIcon />
               </button>
             </div>
 
-            <div className="space-y-5 px-5 py-5">
+            <div className="space-y-5 px-4 py-5 pb-[max(1.25rem,env(safe-area-inset-bottom,0px))] sm:px-5 sm:pb-5">
               <div className="rounded-lg border border-mesh-border bg-mesh-surface/30 p-4 text-xs leading-relaxed text-mesh-muted">
-                <p>
-                  EU:s AI-förordning (AI Act) ställer krav på transparens, riskhantering och
-                  dokumentation för vissa system. Exakt tillämpning beror på er kontext.
-                </p>
-                <p className="mt-2">
-                  Rekommendation: kombinera en enkel inventering med tydliga ägare och en plan
-                  för uppföljning när regelverket trappas upp.
-                </p>
+                <p>{msg.intro1}</p>
+                <p className="mt-2">{msg.intro2}</p>
               </div>
 
               <ol className="space-y-4">
-                {QUESTIONS.map((q, i) => (
+                {questions.map((q, i) => (
                   <li key={q.id} className="rounded-lg border border-mesh-border/80 p-3.5">
-                    <p className="text-sm font-medium text-mesh-text">
+                    <p className="text-pretty text-sm font-medium text-mesh-text">
                       {i + 1}. {q.prompt}
                     </p>
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      {[
-                        { v: 0, t: "Nej / oklart" },
-                        { v: 1, t: "Delvis" },
-                        { v: 2, t: "Ja" },
-                      ].map((opt) => (
+                    <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-3">
+                      {opts.map((opt) => (
                         <button
                           key={opt.v}
                           type="button"
                           onClick={() => setAnswer(q.id, opt.v)}
-                          className={`rounded-md border px-2.5 py-1.5 text-xs font-medium transition-colors ${
+                          className={`touch-manipulation min-h-12 rounded-md border px-3 py-2.5 text-center text-xs font-medium transition-colors sm:min-h-10 sm:px-2.5 sm:py-2 sm:text-left ${
                             answers[q.id] === opt.v
                               ? "border-mesh-accent/60 bg-mesh-accent/15 text-mesh-text"
                               : "border-mesh-border text-mesh-muted hover:border-mesh-muted hover:text-mesh-text"
@@ -239,18 +202,20 @@ function AiActModal({
                 ))}
               </ol>
 
-              <div className="flex flex-wrap items-center gap-3">
+              <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                 <button
                   type="button"
                   disabled={!filled}
                   onClick={() => setSubmitted(true)}
-                  className="rounded-md bg-mesh-accent px-4 py-2 text-sm font-medium text-mesh-bg transition-colors hover:bg-mesh-accent-hover disabled:cursor-not-allowed disabled:opacity-45"
+                  className="touch-manipulation min-h-12 w-full rounded-md bg-mesh-accent px-4 py-3 text-sm font-medium text-mesh-bg transition-colors hover:bg-mesh-accent-hover disabled:cursor-not-allowed disabled:opacity-45 sm:min-h-0 sm:w-auto sm:py-2"
                 >
-                  Visa bedömning
+                  {msg.submit}
                 </button>
                 {filled ? (
                   <span className="text-xs text-mesh-muted">
-                    Poäng: {total} av {max}
+                    {msg.score
+                      .replace("{current}", String(total))
+                      .replace("{max}", String(max))}
                   </span>
                 ) : null}
               </div>
@@ -278,8 +243,7 @@ function AiActModal({
                       {result.body}
                     </p>
                     <p className="mt-3 text-[11px] text-mesh-muted/85">
-                      Detta är ett exempel på hur en snabb intern avstämning kan se ut.
-                      Anpassa frågorna efter er sektor och era system.
+                      {msg.footerNote}
                     </p>
                   </motion.div>
                 ) : null}

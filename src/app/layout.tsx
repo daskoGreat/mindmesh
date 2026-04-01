@@ -1,5 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
+import { HtmlLangSync } from "@/components/ui/HtmlLangSync";
+import { I18nProvider } from "@/i18n/I18nProvider";
+import { LanguageToggle } from "@/components/ui/LanguageToggle";
 import "./globals.css";
 
 const inter = Inter({
@@ -8,10 +11,17 @@ const inter = Inter({
   display: "swap",
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#05070d",
+};
+
 export const metadata: Metadata = {
   title: "MindMesh",
   description:
-    "Vi arbetar där människa, affär och teknik möts. Konsult med fokus på klarhet, AI och ledarskap.",
+    "MindMesh: riktning, kommunikation och ledarskap för organisationer som söker klarhet.",
 };
 
 export default function RootLayout({
@@ -21,7 +31,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="sv" className={`${inter.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="flex min-h-full min-h-[100dvh] flex-col">
+        <I18nProvider>
+          <HtmlLangSync />
+          <LanguageToggle />
+          {children}
+        </I18nProvider>
+      </body>
     </html>
   );
 }
