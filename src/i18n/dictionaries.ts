@@ -16,7 +16,15 @@ export type Messages = {
     insightDot: string;
   };
   hero: { title: string; lead: string; cta: string };
-  whatWeDo: { heading: string; leadership: string; leadershipBody: string; comms: string; commsBody: string };
+  whatWeDo: {
+    heading: string;
+    aiTech: string;
+    aiTechBody: string;
+    leadership: string;
+    leadershipBody: string;
+    comms: string;
+    commsBody: string;
+  };
   howWeThink: { heading: string; p1: string; p2: string; p3: string };
   people: { heading: string; featuredProjects: string; openCard: string };
   team: {
@@ -60,7 +68,7 @@ export const dictionaries: Record<Locale, Messages> = {
   sv: {
     meta: {
       description:
-        "MindMesh: riktning, kommunikation och ledarskap för organisationer som söker klarhet.",
+        "MindMesh – riktning, kommunikation och ledarskap när det behöver bli enklare att fatta beslut.",
     },
     a11y: {
       languageNav: "Språk",
@@ -73,23 +81,26 @@ export const dictionaries: Record<Locale, Messages> = {
     },
     hero: {
       title: "Skapa klarhet där det finns komplexitet",
-      lead: "Vi hjälper organisationer att förstå vad som händer, vad som spelar roll och vad nästa steg bör vara.",
+      lead: "Vi hjälper er se vad som faktiskt händer, vad som betyder något och vad ni rimligen bör göra härnäst.",
       cta: "Utforska MindMesh",
     },
     whatWeDo: {
       heading: "Vad vi gör",
+      aiTech: "AI och teknik",
+      aiTechBody:
+        "AI hamnar lätt i fel möte. Vi redar ut var det används, vem som bestämmer och hur det hänger ihop med övriga mål. Poängen är bättre beslut, inte fler piloter som ingen vågar lägga ned.",
       leadership: "Ledarskap och riktning",
       leadershipBody:
-        "Vi stöttar ledare och team i att navigera osäkerhet. Det handlar inte om fler initiativ utan om rätt riktning.",
+        "När mycket känns otydligt behövs sällan fler initiativ. Vi jobbar med ledare och team om riktning som går att förklara och stå för.",
       comms: "Kommunikation och organisation",
       commsBody:
-        "Vi hjälper er att förtydliga budskap, roller och beslutsvägar så att förändring faktiskt får fäste i vardagen.",
+        "Tydligare budskap, tydligare roller och tydligare beslutsvägar. Annars fastnar förändring i slutet av varje möte.",
     },
     howWeThink: {
       heading: "Hur vi tänker",
-      p1: "De flesta problem är inte isolerade. De hänger ihop.",
-      p2: "Vi ser helheten. Människorna, kulturen och besluten som styr vardagen.",
-      p3: "När det får ta tid blir det tydligt vad som faktiskt spelar roll.",
+      p1: "Det mesta hänger ihop, även när det ser ut som separata problem.",
+      p2: "Vi tittar på människor, kultur och vilka beslut som faktiskt styr vardagen.",
+      p3: "Om man får prata klart brukar det bli uppenbart vad som räknas på riktigt.",
     },
     people: {
       heading: "Personer",
@@ -98,22 +109,22 @@ export const dictionaries: Record<Locale, Messages> = {
     },
     team: {
       role: "CEO/Founder",
-      bio: "Arbetar med riktning, kommunikation och ledarskap. Hjälper organisationer att förstå sig själva och fatta bättre beslut.",
+      bio: "Riktning, kommunikation och ledarskap. Gillar när det som är rörigt får ett språk och ett nästa steg.",
       projects: [
         {
           title: "Strategisk förnyelse i tjänsteföretag",
           description:
-            "Faciliterade ett år långt program där ledning och nyckelroller synkade riktning innan större förändringar skulle sättas i verk.",
+            "Ett år där ledning och nyckelroller fick synka riktning innan större satsningar skulle igång.",
         },
         {
           title: "Kommunikation vid förändring",
           description:
-            "Tydliggjorde berättelse och beslutsunderlag när en organisation gick från silos till gemensamma mål.",
+            "När silos skulle bli gemensamma mål: tydligare berättelse och beslutsunderlag som höll för frågor från golvet.",
         },
         {
           title: "Styrelse och riskperspektiv",
           description:
-            "Återkommande material till styrelsen med frågor som faktiskt spelar roll i ert ansvar. Illustrativt exempel.",
+            "Material till styrelsen om sådant som faktiskt påverkar ert ansvar. Exempel, inte referens.",
         },
       ],
     },
@@ -122,7 +133,7 @@ export const dictionaries: Record<Locale, Messages> = {
       items: [
         {
           title: "Strategi och riktning",
-          text: "Tydliggjorda prioriteringar och berättelser som ledning och organisation kan enas kring.",
+          text: "Prioriteringar och berättelser som går att diskutera i ledning och i linjen utan att alla pratar förbi varandra.",
         },
         {
           title: "Förändringsledning",
@@ -146,7 +157,7 @@ export const dictionaries: Record<Locale, Messages> = {
         },
         {
           title: "Program och uppdrag",
-          text: "Uppdrag som håller ihop riktning, kommunikation och uppföljning över tid.",
+          text: "Uppdrag där riktning, kommunikation och uppföljning inte lever i tre olika dokument.",
         },
       ],
     },
@@ -169,23 +180,23 @@ export const dictionaries: Record<Locale, Messages> = {
     tips: [
       {
         title: "Riktning",
-        body: "Börja med att namnge vad som är viktigast nu. Då blir både budskap och prioriteringar enklare att hålla ihop.",
+        body: "Säg högt vad som är viktigast just nu. Då slipper ni prata förbi varandra om resten.",
       },
       {
         title: "Ansvar",
-        body: "Tydliga roller kring beslut minskar friktion när tempet skruvas upp eller förändringen känns otydlig.",
+        body: "Om det inte står vem som bestämmer blir det bråk när det brådar.",
       },
       {
         title: "Spårbarhet",
-        body: "Korta loggar över vad ni beslutat, och varför, räcker ofta längre än dokumentation som ändå inte läses.",
+        body: "Tre rader om vad ni beslutat och varför slår ofta tjock pärm som ingen öppnar.",
       },
       {
         title: "Helhet",
-        body: "Lyft blicken från enskilda projekt: hur hänger kultur, mål och vardag beteenden ihop just nu?",
+        body: "Lyft blicken från enskilda projekt: hur hänger kultur, mål och vardagsbeteenden ihop just nu?",
       },
       {
         title: "Kommunikation",
-        body: "Samma sak får ofta förklaras på olika sätt för olika grupper. Ett gemensamt underlag gör svaren mer lika.",
+        body: "Samma budskap får låta olika för olika grupper. Börja från samma underlag så blir svaren mer lika.",
       },
     ],
     personModal: {
@@ -196,9 +207,9 @@ export const dictionaries: Record<Locale, Messages> = {
       title: "AI Act Compliance Check",
       subtitle: "Förenklad självbedömning för demonstration. Ersätter inte juridisk rådgivning.",
       intro1:
-        "EU:s AI-förordning (AI Act) ställer krav på transparens, riskhantering och dokumentation för vissa system. Tillämpningen beror på er kontext.",
+        "EU:s AI-förordning ställer krav på öppenhet, risk och dokumentation för en del system. Hur hårt det trycker beror på vad ni gör.",
       intro2:
-        "Praktiskt brukar en enkel inventering, tydliga ägare och en löpande plan räcka långt när regelverket skärps.",
+        "I praktiken: skriv ner var AI finns, vem som svarar och vad ni gör om något går snett. Resten kan ni bygga på sen.",
       opt0: "Nej / oklart",
       opt1: "Delvis",
       opt2: "Ja",
@@ -216,15 +227,15 @@ export const dictionaries: Record<Locale, Messages> = {
       levels: {
         green: {
           label: "Bra utgångsläge",
-          body: "Flera byggstenar verkar finnas. Behåll tydliga ägarskap och fortsätt följa upp när nya lösningar tillkommer.",
+          body: "Ni har redan en del på plats. Fortsätt med tydliga ägare och titta på det igen när något nytt tillkommer.",
         },
         yellow: {
           label: "Delvis beredskap",
-          body: "Det finns luckor som är värda att täppa till innan kraven syns i vardagen. Börja med dokumentation och roller.",
+          body: "Det finns hål att täppa till innan det börjar synas i vardagen. Börja med vem som svarar för vad och skriv ner det.",
         },
         red: {
           label: "Hög prioritering",
-          body: "Flera signaler tyder på att strukturen behöver stärkas. En fokuserad kartläggning och en handfull prioriterade åtgärder brukar vara rätt nästa steg.",
+          body: "Här behöver ni sätta tid ganska snart. En enkel kartläggning och några få saker ni faktiskt gör brukar räcka långt.",
         },
       },
     },
@@ -232,7 +243,7 @@ export const dictionaries: Record<Locale, Messages> = {
   en: {
     meta: {
       description:
-        "MindMesh: direction, communication, and leadership for organisations that want clarity.",
+        "MindMesh – direction, communication, and leadership when decisions need to feel simpler.",
     },
     a11y: {
       languageNav: "Language",
@@ -245,23 +256,26 @@ export const dictionaries: Record<Locale, Messages> = {
     },
     hero: {
       title: "Create clarity where things are complex",
-      lead: "We help organisations see what is going on, what actually matters, and what the next step should be.",
+      lead: "We help you see what is actually happening, what actually matters, and what is reasonable to do next.",
       cta: "Explore MindMesh",
     },
     whatWeDo: {
       heading: "What we do",
+      aiTech: "AI and technology",
+      aiTechBody:
+        "AI often ends up in the wrong room. We sort out where it is used, who decides, and how it ties to your other goals. The aim is better decisions, not more pilots no one dares to shut down.",
       leadership: "Leadership and direction",
       leadershipBody:
-        "We support leaders and teams in uncertain phases. The point is rarely more initiatives, but the right direction.",
+        "When a lot feels fuzzy you rarely need more initiatives. We work with leaders and teams on direction you can explain and stand behind.",
       comms: "Communication and organisation",
       commsBody:
-        "We help you sharpen messages, roles, and decision paths so change sticks in day-to-day work.",
+        "Clearer messages, clearer roles, clearer decision paths. Otherwise change stalls at the end of every meeting.",
     },
     howWeThink: {
       heading: "How we think",
-      p1: "Most issues are not isolated. They connect.",
-      p2: "We look at the whole: people, culture, and the decisions that shape how work really runs.",
-      p3: "When there is room to reflect, it becomes obvious what deserves attention.",
+      p1: "Most things connect, even when they look like separate problems.",
+      p2: "We look at people, culture, and the decisions that actually steer day-to-day work.",
+      p3: "If people get to finish their sentences, it usually becomes obvious what really counts.",
     },
     people: {
       heading: "People",
@@ -270,22 +284,22 @@ export const dictionaries: Record<Locale, Messages> = {
     },
     team: {
       role: "CEO/Founder",
-      bio: "Frida works with direction, communication, and leadership. She helps organisations understand themselves and make better calls.",
+      bio: "Direction, communication, and leadership. Likes it when messy situations get words and a next step.",
       projects: [
         {
           title: "Strategic renewal in a services firm",
           description:
-            "A year-long programme where leadership and key roles aligned on direction before larger changes were rolled out.",
+            "A year where leadership and key roles got aligned on direction before the bigger bets went live.",
         },
         {
           title: "Communication during change",
           description:
-            "Clarified narrative and decision material as one organisation moved from silos to shared goals.",
+            "Moving from silos to shared goals: clearer narrative and decision material that held up to questions from the floor.",
         },
         {
           title: "Board and risk perspective",
           description:
-            "Recurring board material with questions that matter for your oversight. Illustrative example.",
+            "Board material on what actually affects your oversight. Example, not a reference case.",
         },
       ],
     },
@@ -294,7 +308,7 @@ export const dictionaries: Record<Locale, Messages> = {
       items: [
         {
           title: "Strategy and direction",
-          text: "Priorities and narratives that leadership and the wider organisation can actually rally around.",
+          text: "Priorities and narratives you can discuss in leadership and in the line without talking past each other.",
         },
         {
           title: "Change leadership",
@@ -318,7 +332,7 @@ export const dictionaries: Record<Locale, Messages> = {
         },
         {
           title: "Programmes and assignments",
-          text: "Work that keeps direction, communication, and follow-up connected over time.",
+          text: "Assignments where direction, communication, and follow-up do not live in three different documents.",
         },
       ],
     },
@@ -341,23 +355,23 @@ export const dictionaries: Record<Locale, Messages> = {
     tips: [
       {
         title: "Direction",
-        body: "Name what matters most right now. Messaging and trade-offs get easier once that is explicit.",
+        body: "Say out loud what matters most right now. The rest of the conversation gets easier.",
       },
       {
         title: "Ownership",
-        body: "Clear decision roles reduce friction when pace picks up or change feels fuzzy.",
+        body: "If it is not clear who decides, people argue when things heat up.",
       },
       {
         title: "Traceability",
-        body: "Short logs of what you decided, and why, often beat polished documents no one opens.",
+        body: "Three lines on what you decided and why often beat a thick binder no one opens.",
       },
       {
         title: "The wider view",
-        body: "Step back from single projects: how do culture, goals, and everyday habits line up?",
+        body: "Step back from single projects: how do culture, goals, and everyday habits line up right now?",
       },
       {
         title: "Communication",
-        body: "The same point may need different wording for different groups. One shared brief keeps answers consistent.",
+        body: "The same message may land differently for different groups. Start from one brief so answers stay similar.",
       },
     ],
     personModal: {
@@ -368,9 +382,9 @@ export const dictionaries: Record<Locale, Messages> = {
       title: "AI Act Compliance Check",
       subtitle: "A light self-assessment for demonstration. Not legal advice.",
       intro1:
-        "The EU AI Act sets expectations on transparency, risk management, and documentation for certain systems. How it lands depends on your context.",
+        "The EU AI Act asks for openness, risk thinking, and documentation for some systems. How hard it bites depends on what you do.",
       intro2:
-        "In practice, a simple inventory, clear owners, and a plan for follow-up go a long way as rules tighten.",
+        "In practice: write down where AI lives, who is accountable, and what you do when something goes wrong. You can build from there.",
       opt0: "No / unclear",
       opt1: "Partly",
       opt2: "Yes",
@@ -388,15 +402,15 @@ export const dictionaries: Record<Locale, Messages> = {
       levels: {
         green: {
           label: "Solid starting point",
-          body: "Several foundations seem in place. Keep ownership clear and continue to review as new tools arrive.",
+          body: "You already have a fair bit in place. Keep owners clear and look again when something new lands.",
         },
         yellow: {
           label: "Partial readiness",
-          body: "There are gaps worth closing before requirements show up in daily work. Start with documentation and roles.",
+          body: "There are holes to close before it shows up in daily work. Start with who answers for what and write it down.",
         },
         red: {
           label: "High priority",
-          body: "Signals suggest the structure needs attention soon. A focused mapping and a handful of concrete actions is usually the right next move.",
+          body: "You will want to spend time on this soon. A simple map and a few things you actually do usually go far.",
         },
       },
     },
